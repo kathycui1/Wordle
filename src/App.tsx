@@ -87,37 +87,44 @@ const App: React.FC = () => {
       <p>Guess the word in {MAX_ATTEMPTS} attempts!</p>
       {renderKeyLegend()}
 
+      {/* Guess history */}
       <div className="history">
         {history.map((guess, index) => (
+
           <div key={index} className="guess">
+            {/* Display each letter of the guess */}
             {guess.split('').map((letter, index) => (
               <div
                 key={index}
                 className={`letter ${getLetterColor(letter, index)}`}
               >
+                {/* If the game is won, display the history of correctness, otherwise do nothing */}
                 {isWin || guess[index]}
               </div>
             ))}
           </div>
         ))}
       </div>
+
+      {/* Display the word to be guessed */}
       <div className="word">
         {WORD.split('').map((letter, index) => (
           <div key={index} className="letter">
-            {isWin || guess[index]}
           </div>
               ))}
       </div>
+
+      {/* Display the word as a grid for a visual representation */}
       <div className="grid-container">
         <div className="grid">
           {WORD.split('').map((letter, index) => (
             <div key={index} className="grid-cell">
-              {isWin || guess[index]}
             </div>
           ))}
         </div>
       </div>
 
+      {/* Form for entering a guess */}
       {!isWin && attempts < MAX_ATTEMPTS && (
         <form onSubmit={handleFormSubmit}>
           <input
@@ -130,6 +137,7 @@ const App: React.FC = () => {
         </form>
       )}
 
+      {/* Display the number of attempts */}
       {attempts > 0 && (
         <div className="attempts">
           <p>
@@ -138,6 +146,7 @@ const App: React.FC = () => {
         </div>
       )}
 
+      {/* If the game is won, display win message and play again button */}
       {isWin && (
         <div className="win-message">
           <p>Congratulations! You won!</p>
@@ -145,6 +154,7 @@ const App: React.FC = () => {
         </div>
       )}
 
+      {/* If the game is lost, display lose message, the correct word, and try again button */}
       {!isWin && attempts === MAX_ATTEMPTS && (
         <div className="lose-message">
           <p>Sorry, you lost!</p>
@@ -158,3 +168,4 @@ const App: React.FC = () => {
 };
 
 export default App;
+
